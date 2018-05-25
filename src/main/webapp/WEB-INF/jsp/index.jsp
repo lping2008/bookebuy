@@ -10,7 +10,6 @@
 	
 this is the index page<p>
 	当前登录用户:${username}<p>
-	${login.message}<p>
 	<a href="http://localhost/login">登录</a>			
 </body>
 </html>
