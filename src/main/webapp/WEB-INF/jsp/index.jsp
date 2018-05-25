@@ -7,9 +7,11 @@
 <title>bookebuy login</title>
 </head>
 <body>
-	
-this is the index page<p>
-	当前登录用户:${username}<p>
-	<a href="http://localhost/login">登录</a>			
+
+	this is the index page	<p>
+		<c:if test="${not empty user }">
+			当前用户:${user.username}<p>
+		</c:if>
+		<a href="http://localhost/login">登录</a>
 </body>
 </html>

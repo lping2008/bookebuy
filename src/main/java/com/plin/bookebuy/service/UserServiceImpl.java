@@ -19,12 +19,16 @@ public class UserServiceImpl implements IUserService{
 	public User login(String username,String password) {
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andUsernameEqualTo(username);
-		criteria.andPasswordEqualTo(password);
-		List<User> list = userMapper.selectByExample(example );
-		if (list!=null) {
-			User user=list.get(0);
-			return user;
+		if(username!=null) {
+			criteria.andUsernameEqualTo(username);
+			List<User> list = userMapper.selectByExample(example );
+			if (list!=null) {
+				for (User user : list) {
+					if(user.getPassword().equals(password)) {
+						return user;				
+					}				
+				}
+			}
 		}
 		return null;
 	}

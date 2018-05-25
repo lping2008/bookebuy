@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.plin.bookebuy.pojo.User;
 import com.plin.bookebuy.service.IUserService;
@@ -27,8 +28,7 @@ public class UserController {
 	@RequestMapping("/user/login")
 	@ResponseBody
 	public User login(User user,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
-		
-		User userExist = userService.login(user.getUsername(), user.getPassword());
+		User userExist = userService.login(user.getUsername(), user.getPassword());		
 		if(userExist!=null) {
 			// 自动登录
 			String autologin = request.getParameter("autologin");
@@ -51,14 +51,15 @@ public class UserController {
 			
 			// 登录成功后，将用户存储到session中.
 			request.getSession().invalidate();
+			//将用户对象返回到前段
 			request.getSession().setAttribute("user", user);
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			request.setAttribute("username", username);
+			response.sendRedirect(request.getContextPath() + "/index");
 			return userExist;
 		}else {
 			request.setAttribute("login.message", "用户名或密码错误");
-			request.getRequestDispatcher("/page.jsp").forward(request,
+			request.getRequestDispatcher("/login").forward(request,
 					response);
-			
 			return null;
 		}		
 	}

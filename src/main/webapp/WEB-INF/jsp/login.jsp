@@ -9,7 +9,7 @@
 <body>
 	login page
 	${login.message }<p>
-	<form action="localhost/user/login" method="post">
+	<form action="/user/login" method="post">
 	username:<input type="text" name="username"><p>
 	password:<input type="password" name="password"><p>
 	<input type="checkbox" name="autologin" value="on" />自动登陆
